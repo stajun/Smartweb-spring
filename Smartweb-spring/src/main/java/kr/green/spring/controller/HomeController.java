@@ -25,9 +25,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost() {
-		
-		return "redirect:/";
+	public String homePost(String id, String pw) {
+		if(accountService.signin(id,pw)) 
+			return "redirect:/bbs/list";
+		else
+			return "redirect:/";
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signupGet(Boolean fail, Model model) {
