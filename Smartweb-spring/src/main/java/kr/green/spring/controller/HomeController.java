@@ -25,11 +25,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id, String pw) {
-		if(accountService.signin(id,pw)) 
+	public String homePost(String id, String pw, Model model) {
+		AccountVo user = accountService.signin(id,pw); 
+		if( user != null) {
+			model.addAttribute("user", user);
 			return "redirect:/bbs/list";
-		else
+		}
+		else {
 			return "redirect:/";
+		}
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signupGet(Boolean fail, Model model) {
